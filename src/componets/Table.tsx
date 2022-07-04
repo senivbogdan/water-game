@@ -94,7 +94,6 @@ const Table = () => {
 
     const handleClick = (id: number) => {
         const test = arrayGame.map((item, index, arr) => {
-            console.log(item)
             if (!blue && id >= 70 && id === item.i) {
                 item.isEarth = true
             }
@@ -103,24 +102,26 @@ const Table = () => {
             }
             return item
         });
-        console.log("test", test)
         setArrayGame(test)
     }
 // Напистаь интерфейс
 
     let arrayCheck: any;
-    const runRain = ():void => {
-            const rer = arrayGame.map((item, id,arr) => {
-            if (item.isEarth) {
-                for (let i = arrayGame.findIndex(i => i.isEarth); i < arrayGame.length; i++) {
-
+    const runRain = ():any => {
+          return arrayGame.map((item, id,arr) => {
+                let setI = arrayGame.findIndex(i => i.isEarth)
+                // let setEndPoint = arrayGame.lastIndexOf(item.isEarth) + 1
+              // console.log('setEndPoint', setEndPoint)
+              for (let i = setI; i < arrayGame.lastIndexOf(item.isEarth) + 1; i++) {
+                    console.log("asd", arrayGame[i])
+                    // console.log("setI", setI)
                     if (!arrayGame[i].isEarth) {
                         return arrayGame[i].isWater = true
                     }
-                    if (i === arrayGame.lastIndexOf(item) + 1) {
-                        console.log(arrayGame.lastIndexOf(item) + 1)
-                        break
-                    }
+                    // if (i === setEndPoint + 1) {
+                    //     console.log("setEndPoint", setEndPoint)
+                    //     break
+                    // }
                 }
                 // arrayCheck = arr.slice(arrayGame.findIndex(i => i.isEarth), arrayGame.lastIndexOf(item) + 1)
                 // .filter((item: any): any => {
@@ -130,9 +131,9 @@ const Table = () => {
                 //         return item.isWater = true
                 //         }
                 //     })
-            }
+
         })
-        console.log("arrayGame", arrayGame)
+        // console.log("rer", rer)
     }
 
     const resetGame = () => {
