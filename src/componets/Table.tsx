@@ -66,13 +66,18 @@ interface Obj {
     isWater: boolean
 }
 
+interface Points {
+    firstPoint: number,
+    endPoint: number
+}
+
 const Table = () => {
     const [blue, setBlue] = useState(false)
     const [arrayGame, setArrayGame] = useState<Obj[]>([])
-    const [checkArr, setArray] = useState<Obj[]>([])
-
+    const [endPoint, setEndPoint] = useState<number>(0)
+    const [points, setPoints] = useState<Points>({firstPoint: 0, endPoint: 79})
     const getInitialArray:any = () => {
-        const res = [];
+        const res = []
         for (let i: number = 0; i < 80; i++) {
             res.push({
                 i: i,
@@ -84,65 +89,63 @@ const Table = () => {
     }
 
     useEffect(() => {
-        if (arrayGame.length) return;
+        if (arrayGame.length) return
         const initArray = getInitialArray()
         setArrayGame(initArray)
     }, [])
 
-    // const arrayGame: Obj[] = []
-
-
     const handleClick = (id: number) => {
         const test = arrayGame.map((item, index, arr) => {
             if (!blue && id >= 70 && id === item.i) {
+                if (points.firstPoint === 0) {
+                    points.firstPoint = id
+                }
+                if (points.firstPoint < id) {
+                    points.endPoint = id
+                }
+
+                setEndPoint(id)
                 item.isEarth = true
             }
             if (id === item.i && arr[id + 10]?.isEarth) {
-                item.isEarth = true
+                if (id <= points.firstPoint) {
+                    points.firstPoint = id
+                }
+                if (id > points.firstPoint) {
+                    points.endPoint = id
+                }
+                    item.isEarth = true
             }
             return item
-        });
+        })
         setArrayGame(test)
     }
-// Напистаь интерфейс
 
-    let arrayCheck: any;
-    const runRain = ():any => {
-          return arrayGame.map((item, id,arr) => {
-                let setI = arrayGame.findIndex(i => i.isEarth)
-                // let setEndPoint = arrayGame.lastIndexOf(item.isEarth) + 1
-              // console.log('setEndPoint', setEndPoint)
-              for (let i = setI; i < arrayGame.lastIndexOf(item.isEarth) + 1; i++) {
-                    console.log("asd", arrayGame[i])
-                    // console.log("setI", setI)
-                    if (!arrayGame[i].isEarth) {
-                        return arrayGame[i].isWater = true
-                    }
-                    // if (i === setEndPoint + 1) {
-                    //     console.log("setEndPoint", setEndPoint)
-                    //     break
-                    // }
-                }
-                // arrayCheck = arr.slice(arrayGame.findIndex(i => i.isEarth), arrayGame.lastIndexOf(item) + 1)
-                // .filter((item: any): any => {
-                //         return item.isEarth === false
-                //     }).forEach((item: any, index: number, array: any) => {
-                //         if (!item.isEarth) {
-                //         return item.isWater = true
-                //         }
-                //     })
+    const runRain = ():void  => {
+        const newArray: Obj[] = []
+        arrayGame.map((item, id,arr) => {
+            newArray.push(item)
+               if (id === points.endPoint) {
+                   return
+               }
 
+           if (id >= points.firstPoint && id <= points.endPoint) {
+               if (!item.isEarth) {
+                       if (arr[id + 10]) {
+                           item.isWater = true
+                           arr[id + 10].isWater = true
+                           return item
+                       }
+                   }
+               }
         })
-        // console.log("rer", rer)
+       setArrayGame(newArray)
     }
 
     const resetGame = () => {
         const initArray = getInitialArray()
         setArrayGame(initArray)
-    };
-
-
-    // console.log('arrayGame', arrayGame)
+    }
 
     return (
         <>
