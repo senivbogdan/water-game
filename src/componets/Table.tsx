@@ -5,6 +5,7 @@ export const DivGame = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  flex-direction: row;
   justify-content: center;
   background: grey;
   width: 1020px;
@@ -40,10 +41,13 @@ export const ButtonReset = styled.button`
   background: white;
   color: #61dafb;
   cursor: pointer;
-
   :active {
     font-size: 32px;
   }
+`
+export const DivTable = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 export const ButtonRun = styled.button`
   border-radius: 7px;
@@ -52,7 +56,6 @@ export const ButtonRun = styled.button`
   background: #1ee022;
   color: white;
   cursor: pointer;
-
   :active {
     font-size: 32px;
   }
@@ -68,6 +71,7 @@ interface Points {
     firstPoint: number,
     endPoint: number
 }
+
 
 const Table = () => {
     const [blue, setBlue] = useState(false)
@@ -85,11 +89,13 @@ const Table = () => {
         return res
     }
 
+
     useEffect(() => {
         if (arrayGame.length) return
         const initArray = getInitialArray()
         setArrayGame(initArray)
     }, [])
+
 
     const handleClick = (id: number) => {
         const test = arrayGame.map((item, index, arr) => {
@@ -114,24 +120,41 @@ const Table = () => {
             return item
         })
 
-        if (points.endPoint - points.firstPoint === 10) {
-            let array: any = [...test]
-            let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
-            points.endPoint = points.endPoint - 10
-            points.firstPoint = newFirstPoint
-        }
-
-
         if (points.endPoint === points.firstPoint) {
             let array: any = [...test]
             for (let i = points.firstPoint; i < array.length; i++) {
-                let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
-                let sliceArr = array.slice(newFirstPoint + 1)
-                points.endPoint = sliceArr.find((item: any) => item.isEarth).i
+                let newFirstPoint = test.indexOf(array.find((item: any) => item.isEarth))
+                let sliceArr = array.slice(newFirstPoint)
+                // points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
+                let kek = array.slice(points.firstPoint + 1)
+                // points.endPoint = kek.find((item: any) => item.isEarth).i
+                console.log("asd")
             }
         }
-        console.log("firstPoint", points.firstPoint)
-        console.log("endPoint", points.endPoint)
+        if (points.endPoint - points.firstPoint === 10) {
+            console.log("dura")
+            let array: any = [...test]
+            let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
+            points.firstPoint = points.endPoint - 10
+            // points.endPoint = newFirstPoint
+            console.log("endPointasdsadasdasdasd", points.endPoint)
+            console.log("points.firstPoint", points.endPoint)
+        }
+
+
+
+        // if (points.endPoint === points.firstPoint) {
+        //     let array: any = [...test]
+        //     for (let i = points.firstPoint; i < array.length; i++) {
+        //         let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
+        //         let sliceArr = array.slice(newFirstPoint + 1)
+        //         points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
+        //         let kek = array.slice(points.firstPoint + 1)
+        //         points.endPoint = kek.find((item: any) => item.isEarth).i
+        //     }
+        // }
+        // console.log("FFFirstPoint", points.firstPoint)
+        // console.log("EEEndPoint", points.endPoint)
         setArrayGame(test)
     }
 
@@ -140,7 +163,6 @@ const Table = () => {
         arrayGame.map((item, id, arr) => {
             newArray.push(item)
             if (id === points.endPoint) return
-            if (points.endPoint)
                 if (id >= points.firstPoint && id <= points.endPoint) {
                     if (item.isEarth) {
                         item.isWater = false
@@ -148,16 +170,38 @@ const Table = () => {
                     if (Math.floor(points.firstPoint / 10) !== Math.floor(points.endPoint / 10)) {
                         let newArr: any[] = arr.slice(points.firstPoint + 1, points.endPoint)
                         let newFirstpoint = newArr.indexOf(newArr.find((item: any) => item.isEarth))
+                        console.log("newArr", newArr)
+                        console.log("newFirstpoint", newFirstpoint)
                         points.firstPoint = newArr[newFirstpoint].i
+                    }
+
+
+                    if (points.endPoint === points.firstPoint) {
+                        let array: any = [...newArray]
+                        for (let i = points.firstPoint; i < array.length; i++) {
+                            let newFirstPoint = newArray.indexOf(array.find((item: any) => item.isEarth))
+                            let sliceArr = array.slice(newFirstPoint)
+                            points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
+                            let kek = array.slice(points.firstPoint + 1)
+                            points.endPoint = kek.find((item: any) => item.isEarth).i
+                            console.log("asd")
+                        }
                     }
                     if (!item.isEarth) {
                         let i: number = num
                         while (i <= 70) {
-                            i = i + 10
+                            console.log("FFFirstPoint", points.firstPoint)
+                            console.log("EEEndPoint", points.endPoint)
+                            if (Math.floor(points.firstPoint / 10) !== Math.floor(points.endPoint / 10)) {
+                                let newArr: any[] = arr.slice(points.firstPoint, points.endPoint + 1)
+                                let newFirstpoint = newArr.indexOf(newArr.find((item: any) => item.isEarth))
+                                points.firstPoint = newArr[newFirstpoint]?.i
+                            }
                             if (arr[id + i]) {
                                 arr[id + i].isWater = true
                                 item.isWater = true
                             }
+                            i = i + 10
                         }
                     }
                 }
@@ -172,8 +216,10 @@ const Table = () => {
         points.firstPoint = 0
     }
 
+
+
     return (
-        <>
+        <DivTable>
             <DivGame>
                 {arrayGame && arrayGame.map((item: any, id: any) => {
                     return <MappedDiv
@@ -189,9 +235,8 @@ const Table = () => {
                 <ButtonReset onClick={() => resetGame()}>Reset</ButtonReset>
                 <ButtonRun onClick={() => runRain()}>Run</ButtonRun>
             </DivButt>
-        </>
+        </DivTable>
     )
 }
 
 export default Table
-
