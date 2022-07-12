@@ -21,6 +21,7 @@ export const MappedDiv = styled.div<Props>`
   width: 100px;
   background: white;
   margin: 1px;
+  cursor: pointer;
   ${({isWater}) => isWater && css`
     background-color: #1aacda;
   `}
@@ -125,9 +126,9 @@ const Table = () => {
             for (let i = points.firstPoint; i < array.length; i++) {
                 let newFirstPoint = test.indexOf(array.find((item: any) => item.isEarth))
                 let sliceArr = array.slice(newFirstPoint)
-                // points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
+                points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
                 let kek = array.slice(points.firstPoint + 1)
-                // points.endPoint = kek.find((item: any) => item.isEarth).i
+                points.endPoint = kek.find((item: any) => item.isEarth).i
                 console.log("asd")
             }
         }
@@ -140,21 +141,6 @@ const Table = () => {
             console.log("endPointasdsadasdasdasd", points.endPoint)
             console.log("points.firstPoint", points.endPoint)
         }
-
-
-
-        // if (points.endPoint === points.firstPoint) {
-        //     let array: any = [...test]
-        //     for (let i = points.firstPoint; i < array.length; i++) {
-        //         let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
-        //         let sliceArr = array.slice(newFirstPoint + 1)
-        //         points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
-        //         let kek = array.slice(points.firstPoint + 1)
-        //         points.endPoint = kek.find((item: any) => item.isEarth).i
-        //     }
-        // }
-        // console.log("FFFirstPoint", points.firstPoint)
-        // console.log("EEEndPoint", points.endPoint)
         setArrayGame(test)
     }
 
@@ -223,6 +209,7 @@ const Table = () => {
             <DivGame>
                 {arrayGame && arrayGame.map((item: any, id: any) => {
                     return <MappedDiv
+                        data-testid="game-divs"
                         id={id}
                         onClick={() => handleClick(id)}
                         key={id}

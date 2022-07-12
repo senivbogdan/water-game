@@ -1,7 +1,6 @@
 import "../App.css"
 
-const Rain = ({  id, style} : { id: any, style: any }) => {
-    console.log("style", style)
+const Rain = ({ id, style } : { id: any, style: any }) => {
     return (
              <p
                  className={"rain"}
