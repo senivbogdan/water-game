@@ -46,7 +46,9 @@ function App() {
                 animationDelay,
                 fontSize
             }
-            return (<Rain key={i} id={i} style={style}/>)
+            console.log(arr.length, "asd");
+            
+            return (<Rain data-testid="rain-div" key={i} id={i} style={style}/>)
         })
     }
   return (
