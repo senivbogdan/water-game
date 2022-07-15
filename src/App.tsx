@@ -1,4 +1,3 @@
-import React from "react";
 import Table from "./componets/Table";
 import "./App.css";
 import styled from "styled-components";
@@ -31,9 +30,11 @@ interface Props {
     style: any
 
 }
+
 interface Snow {
     snow: any
 }
+
 function App() {
     const snow = () => {
         let animationDelay = '0s';

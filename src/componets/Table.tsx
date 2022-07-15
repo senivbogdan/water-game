@@ -73,7 +73,6 @@ interface Points {
     endPoint: number
 }
 
-
 const Table = () => {
     const [blue, setBlue] = useState(false)
     const [arrayGame, setArrayGame] = useState<Obj[]>([])
@@ -90,13 +89,11 @@ const Table = () => {
         return res
     }
 
-
     useEffect(() => {
         if (arrayGame.length) return
         const initArray = getInitialArray()
         setArrayGame(initArray)
     }, [])
-
 
     const handleClick = (id: number) => {
         const test = arrayGame.map((item, index, arr) => {
@@ -191,8 +188,6 @@ const Table = () => {
         points.endPoint = 79
         points.firstPoint = 0
     }
-
-
 
     return (
         <DivTable>

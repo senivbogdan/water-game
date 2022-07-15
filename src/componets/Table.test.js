@@ -6,9 +6,8 @@ describe("USER TEST", () => {
     render(<Table/>)
     const buttonReset = screen.getByText("Reset")
     const buttonRun = screen.getByText("Run")
-
   })
-  test("kek", () => {
+  test("render table test", () => {
     render(<Table/>)
     const divs = screen.findAllByTestId("game-divs")  
   })
