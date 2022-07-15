@@ -129,17 +129,12 @@ const Table = () => {
                 points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
                 let kek = array.slice(points.firstPoint + 1)
                 points.endPoint = kek.find((item: any) => item.isEarth).i
-                console.log("asd")
             }
         }
         if (points.endPoint - points.firstPoint === 10) {
-            console.log("dura")
             let array: any = [...test]
             let newFirstPoint = arrayGame.indexOf(array.find((item: any) => item.isEarth))
             points.firstPoint = points.endPoint - 10
-            // points.endPoint = newFirstPoint
-            console.log("endPointasdsadasdasdasd", points.endPoint)
-            console.log("points.firstPoint", points.endPoint)
         }
         setArrayGame(test)
     }
@@ -156,8 +151,6 @@ const Table = () => {
                     if (Math.floor(points.firstPoint / 10) !== Math.floor(points.endPoint / 10)) {
                         let newArr: any[] = arr.slice(points.firstPoint + 1, points.endPoint)
                         let newFirstpoint = newArr.indexOf(newArr.find((item: any) => item.isEarth))
-                        console.log("newArr", newArr)
-                        console.log("newFirstpoint", newFirstpoint)
                         points.firstPoint = newArr[newFirstpoint].i
                     }
 
@@ -170,14 +163,11 @@ const Table = () => {
                             points.firstPoint = sliceArr.find((item: any) => item.isEarth).i
                             let kek = array.slice(points.firstPoint + 1)
                             points.endPoint = kek.find((item: any) => item.isEarth).i
-                            console.log("asd")
                         }
                     }
                     if (!item.isEarth) {
                         let i: number = num
                         while (i <= 70) {
-                            console.log("FFFirstPoint", points.firstPoint)
-                            console.log("EEEndPoint", points.endPoint)
                             if (Math.floor(points.firstPoint / 10) !== Math.floor(points.endPoint / 10)) {
                                 let newArr: any[] = arr.slice(points.firstPoint, points.endPoint + 1)
                                 let newFirstpoint = newArr.indexOf(newArr.find((item: any) => item.isEarth))

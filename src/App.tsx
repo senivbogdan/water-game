@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Table from "./componets/Table";
 import "./App.css";
 import styled from "styled-components";
@@ -45,9 +45,7 @@ function App() {
             let style = {
                 animationDelay,
                 fontSize
-            }
-            console.log(arr.length, "asd");
-            
+            }            
             return (<Rain data-testid="rain-div" key={i} id={i} style={style}/>)
         })
     }
